@@ -3,14 +3,42 @@
 generator client {
   provider = "prisma-client-js"
 }
+
 datasource db {
   // NOTE: You probably want to change this to another database later on
   provider = "sqlite"
   // This value is read from the .env file.
   url      = env("DATABASE_URL")
 }
+
 model Example {
   id          String @id @default(uuid())
   description String
   details     String
+}
+
+model Entity {
+  id         String      @id @default(uuid())
+  name       String      @unique
+  notes      String?
+  parent     Entity?     @relation("EntityToEntity", fields: [parentId], references: [id])
+  parentId   String?
+  children   Entity[]    @relation("EntityToEntity")
+  parameters Parameter[]
+}
+
+model ParameterType {
+  id     String      @id @default(uuid())
+  name   String
+  values Parameter[]
+}
+
+model Parameter {
+  id          String        @id @default(uuid())
+  value       String
+  parameter   ParameterType @relation(fields: [parameterId], references: [id])
+  parameterId String
+  entity      Entity        @relation(fields: [entityId], references: [id])
+  entityId    String
+  status      Int
 }
