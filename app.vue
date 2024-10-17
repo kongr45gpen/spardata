@@ -17,6 +17,7 @@ const types = data._rawValue.parameterTypes
 const parameters = data._rawValue.parameters
 
 let selected = ref(entities[0].id)
+let search = ref('')
 
 function getById(id, arr) {
   return arr.find((item) => item.id === id)
@@ -24,6 +25,47 @@ function getById(id, arr) {
 </script>
 
 <template>
+  <div class="w-screen h-screen absolute flex items-center justify-center bg-slate-500/75 z-10 flex-col gap-11" v-if="search && search.length > 1">
+    <input type="text" class="shadow-2xl rounded-lg  text-2xl w-1/2 h-32
+    bg-gray-50 border border-gray-300 text-gray-700 block w-50 px-10 py-10 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent
+    "
+    v-model="search"
+    />
+    <div class="bg-gray-50 border p-10 w-1/2 text-xl shadow-2xl rounded-lg flex flex-col divide-y">
+      <template class="" v-for="item in entities">
+        <template class="" v-for="k,v in item">
+          <div class="py-5" v-if="k && k.toLowerCase && k.toLowerCase().includes(search.toLowerCase())">
+            <div class="flex items-center">
+              <div class="h-8 w-8 rounded-md bg-gray-400 flex items-center justify-center">
+                <CogIcon fill-color="white" />
+              </div>
+              <div class="ml-2">
+                <h1 class="font-semibold">{{ item.name }}</h1>
+                <p class="text-stone-400">{{ item.product }}</p>
+              </div>
+            </div>
+          </div>
+        </template>
+      </template>
+      <template class="" v-for="item in types">
+        <template class="" v-for="k,v in item">
+          <div class="py-5" v-if="k && k.toLowerCase && k.toLowerCase().includes(search.toLowerCase())">
+            <div class="flex items-center">
+              <div class="h-8 w-8 rounded-md bg-gray-400 flex items-center justify-center">
+                <TimerSandEmptyIcon fill-color="white" />
+              </div>
+              <div class="ml-2">
+                <h1 class="font-semibold">{{ item.name }}</h1>
+                <p class="text-stone-400">{{ item.product }}</p>
+              </div>
+            </div>
+          </div>
+        </template>
+      </template>
+
+    </div>
+  </div>
+
   <div class="h-full">
     <NuxtRouteAnnouncer />
     <div class="h-full w-full flex overflow-hidden antialiased text-gray-800">
@@ -128,7 +170,7 @@ function getById(id, arr) {
           <!-- to bar right  -->
           <ul aria-label="top bar right" aria-orientation="horizontal" class="px-8 flex items-center">
             <li class="relative">
-              <input title="Search Bar" aria-label="search bar" role="search"
+              <input title="Search Bar" aria-label="search bar" role="search" v-model="search"
                 class="pr-8 pl-4 py-2 rounded-md cursor-pointer transition-all duration-300 ease-in-out focus:border-black focus:cursor-text w-4 focus:w-64 placeholder-transparent focus:placeholder-gray-500"
                 type="text" placeholder="Search Chi Desk Support">
               <i class="pointer-events-none absolute top-0 right-0 h-full flex items-center pr-3">
@@ -201,10 +243,10 @@ function getById(id, arr) {
           <!-- section update to tickets -->
           <section class="flex flex-col p-4 w-full max-w-md flex-none bg-gray-100 min-h-0 overflow-auto">
             <h1 class="font-semibold mb-3">
-              Product Tree
+              Product Tree {{  search  }}
             </h1>
             <div class="relative mb-5">
-              <input id="username"
+              <input id="username" v-model="search"
                 class="appearance-none border pl-10 hover:border-gray-400 transition-colors rounded-md w-full py-5 px-3 text-gray-800 leading-tight focus:outline-none focus:ring-purple-600 focus:border-purple-600 focus:shadow-outline"
                 type="text" placeholder="Search...">
               <div class="absolute right-0 inset-y-0 flex items-center">
