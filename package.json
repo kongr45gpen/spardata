@@ -1,5 +1,8 @@
 {
   "private": true,
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "scripts": {
     "dev": "prisma generate && nuxt dev",
     "build": "prisma generate && nuxt build",
@@ -17,10 +20,11 @@
   "devDependencies": {
     "@faker-js/faker": "^9.0.3",
     "@huntersofbook/naive-ui-nuxt": "^1.2.0",
-    "@nuxt/test-utils": "^3.14.3",
     "@nuxt/eslint-config": "^0.5.7",
+    "@nuxt/test-utils": "^3.14.3",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@testing-library/vue": "^8.1.0",
+    "@types/node": "^22.7.5",
     "@vitejs/plugin-vue": "^5.1.4",
     "@vitest/coverage-v8": "^2.1.2",
     "@vitest/ui": "^2.1.2",
@@ -32,6 +36,7 @@
     "nuxt-svgo": "^4.0.6",
     "playwright": "^1.48.0",
     "prisma": "^5.20.0",
+    "tsx": "^4.19.1",
     "typescript": "^5.6.3",
     "unplugin-auto-import": "^0.18.3",
     "unplugin-vue-components": "^0.27.4",
@@ -43,6 +48,7 @@
   "dependencies": {
     "@prisma/client": "^5.20.0",
     "@sidebase/core": "^0.1.4",
+    "marked": "^14.1.3",
     "vue-material-design-icons": "^5.3.1"
   }
 }

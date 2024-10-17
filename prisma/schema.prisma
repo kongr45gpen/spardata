@@ -8,19 +8,15 @@ datasource db {
   // NOTE: You probably want to change this to another database later on
   provider = "sqlite"
   // This value is read from the .env file.
-  url      = env("DATABASE_URL")
-}
-
-model Example {
-  id          String @id @default(uuid())
-  description String
-  details     String
+  url      = "file:./db/dev.db"
 }
 
 model Entity {
   id         String      @id @default(uuid())
   name       String      @unique
+  product    String?
   notes      String?
+  image      String?
   parent     Entity?     @relation("EntityToEntity", fields: [parentId], references: [id])
   parentId   String?
   children   Entity[]    @relation("EntityToEntity")
@@ -29,7 +25,7 @@ model Entity {
 
 model ParameterType {
   id     String      @id @default(uuid())
-  name   String
+  name   String      @unique
   values Parameter[]
 }
 
